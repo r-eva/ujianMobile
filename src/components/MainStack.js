@@ -14,7 +14,8 @@ const MainStack = createAppContainer(createStackNavigator(
         }
     },
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'Login',
+        headerMode: 'none'
     }
 ));
 
