@@ -1,5 +1,6 @@
 import firebase from '@firebase/app';
 import '@firebase/auth';
+import '@firebase/database';
 
 import { 
     LOGIN_USER_SUCCESS,
@@ -17,8 +18,45 @@ export const onUserRegister = ({email,username,password,conPassword}) => {
         ) {
             if(password === conPassword) {
                 firebase.auth().createUserWithEmailAndPassword(email, password)
-                    .then((user) => {
-                        console.log(user)
+                    .then((res) => {
+                        // console.log(res)
+                        res.user.updateProfile({
+                            displayName: username,
+                            photoURL: 'https://icon-library.net/images/default-profile-icon/default-profile-icon-24.jpg'
+                        }).then(() => {
+                            // console.log(res.user)
+                            firebase.database().ref(`/users/${res.user.uid}`)
+                                .push({ 
+                                    displayName: username, 
+                                    photoURL: 'https://icon-library.net/images/default-profile-icon/default-profile-icon-24.jpg'
+                                }).then(() => {
+                                    firebase.auth().signInWithEmailAndPassword(email, password)
+                                        .then((res) => {
+                                            console.log(res.user)
+                                            dispatch({
+                                                type: LOGIN_USER_SUCCESS,
+                                                payload: res.user
+                                            });
+                                        })
+                                        .catch((err) => {
+                                            console.log(err)
+                                            dispatch({ 
+                                                type: REGISTER_FAILED, 
+                                                payload: err.message 
+                                            });
+                                        });
+                                }).catch((err) => {
+                                    dispatch({ 
+                                        type: REGISTER_FAILED, 
+                                        payload: err.message 
+                                    });
+                                })
+                        }).catch(err => {
+                            dispatch({ 
+                                type: REGISTER_FAILED, 
+                                payload: err.message 
+                            });
+                        })
                     }).catch((err) => {
                         console.log(err)
                         dispatch({ 

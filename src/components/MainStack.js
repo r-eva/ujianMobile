@@ -3,6 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import TabMainMenu from './TabMainMenu';
 
 const MainStack = createAppContainer(createStackNavigator(
     {
@@ -11,6 +12,9 @@ const MainStack = createAppContainer(createStackNavigator(
         },
         Register: {
             screen: RegisterForm
+        },
+        HomePage: {
+            screen: ({ navigation }) => <TabMainMenu />
         }
     },
     {

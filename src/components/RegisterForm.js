@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
+import { StackActions, NavigationActions } from 'react-navigation';
 import { onUserRegister } from '../actions';
 
 class RegisterForm extends Component {
@@ -13,6 +14,23 @@ class RegisterForm extends Component {
         username: '',
         password: '',
         conPassword: ''
+    }
+
+    componentDidUpdate() {
+        if(this.props.user 
+            && this.state.email !== '' 
+            && this.state.username !== '' 
+            && this.state.password !== ''
+            && this.state.conPassword !== ''
+        ) {
+            this.setState({ email: '', username: '', password: '', conPassword: '' })
+            // this.props.navigation.navigate('HomePage');
+            const resetAction = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'HomePage' })],
+            });
+            this.props.navigation.dispatch(resetAction);
+        }
     }
 
     onBtnRegisterPress = () => {
@@ -139,7 +157,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = ({ auth }) => {
     return { 
         error: auth.errorRegister, 
-        loading: auth.loadingRegister 
+        loading: auth.loadingRegister,
+        user: auth.user
     }
 }
 

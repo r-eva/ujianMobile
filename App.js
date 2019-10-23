@@ -7,6 +7,7 @@ import reducers from './src/reducers';
 
 class App extends Component {
   render() {
+    console.disableYellowBox = true;
     return (
       <Provider store={createStore(reducers, {}, applyMiddleware(reduxThunk))}>
         <AppInit />
