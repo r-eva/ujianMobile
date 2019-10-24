@@ -4,7 +4,11 @@ import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
 
 class LoginForm extends Component {
-    state = { passHidden: true }
+    state = { 
+        passHidden: true,
+        email: '',
+        password: ''
+    }
 
     render() {
         return (
@@ -22,6 +26,8 @@ class LoginForm extends Component {
                                 color='black'
                             />
                         }
+                        value={this.state.email}
+                        onChangeText={(text) => this.setState({ email: text })}
                     />
                     <Input
                         placeholder='Password'
@@ -41,6 +47,8 @@ class LoginForm extends Component {
                             />
                         }
                         secureTextEntry={this.state.passHidden}
+                        value={this.state.password}
+                        onChangeText={(text) => this.setState({ password: text })}
                     />
                 </View>
                 <Button

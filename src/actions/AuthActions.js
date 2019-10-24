@@ -5,7 +5,9 @@ import '@firebase/database';
 import { 
     LOGIN_USER_SUCCESS,
     START_REGISTER,
-    REGISTER_FAILED
+    REGISTER_FAILED,
+    START_LOGIN,
+    LOGIN_FAILED
 } from './types';
 
 export const onUserRegister = ({email,username,password,conPassword}) => {
@@ -76,5 +78,12 @@ export const onUserRegister = ({email,username,password,conPassword}) => {
                 payload: 'Please Fill All The Inputs Above'
             })
         }
+    }
+}
+
+export const onUserLogin = ({ email, password }) => {
+    return (dispatch) => {
+        dispatch({ type: START_LOGIN })
+        
     }
 }

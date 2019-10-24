@@ -24,10 +24,10 @@ class RegisterForm extends Component {
             && this.state.conPassword !== ''
         ) {
             this.setState({ email: '', username: '', password: '', conPassword: '' })
-            // this.props.navigation.navigate('HomePage');
+            // this.props.navigation.navigate('MainMenu');
             const resetAction = StackActions.reset({
                 index: 0,
-                actions: [NavigationActions.navigate({ routeName: 'HomePage' })],
+                actions: [NavigationActions.navigate({ routeName: 'MainMenu' })],
             });
             this.props.navigation.dispatch(resetAction);
         }

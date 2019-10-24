@@ -13,8 +13,8 @@ const MainStack = createAppContainer(createStackNavigator(
         Register: {
             screen: RegisterForm
         },
-        HomePage: {
-            screen: ({ navigation }) => <TabMainMenu />
+        MainMenu: {
+            screen: ({ navigation }) => <TabMainMenu screenProps={{ rootStackNavigator: navigation }}/>
         }
     },
     {
