@@ -27,11 +27,11 @@ class LoginForm extends Component {
             && this.state.email !== ''
             && this.state.password !== ''
         ) {
-            // this.props.navigation.navigate('MainMenu')
+            // this.props.navigation.navigate('DrawerMain')
             this.setState({ email: '', password: ''})
             const resetAction = StackActions.reset({
                 index: 0,
-                actions: [NavigationActions.navigate({ routeName: 'MainMenu' })],
+                actions: [NavigationActions.navigate({ routeName: 'DrawerMain' })],
             });
             this.props.navigation.dispatch(resetAction);
         }

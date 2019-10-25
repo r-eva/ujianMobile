@@ -2,13 +2,13 @@ import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Icon } from 'react-native-elements';
-import Profile from './Profile';
 import Settings from './Settings';
+import TabMainMenu from './TabMainMenu';
 
 const DrawerNavigator = createAppContainer(createDrawerNavigator(
     {
-        Profile: {
-            screen: Profile,
+        MainMenu: {
+            screen: TabMainMenu,
             navigationOptions: {
                 drawerLabel: () => null
             }
@@ -27,10 +27,13 @@ const DrawerNavigator = createAppContainer(createDrawerNavigator(
         drawerBackgroundColor: '#fff',
         drawerPosition: 'right',
         drawerType: 'slide',
-        overlayColor: 0,
+        overlayColor: 1,
         style: {
             borderColor: '#cfcfcf',
             borderWidth: 1,
+        },
+        contentOptions: {
+            activeTintColor: 'black'
         }
      }
 ));

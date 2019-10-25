@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Platform } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 class Profile extends Component {
@@ -10,7 +10,7 @@ class Profile extends Component {
                 <Header
                     leftComponent={{ 
                         text: this.props.user.displayName.toLowerCase().replace(/\s/g, ''), 
-                        style: { color: 'black', fontSize: 18 } 
+                        style: { color: 'black', fontSize: 18, fontWeight: '700' } 
                     }}
                     leftContainerStyle={{ flex: 3 }}
                     rightComponent={{ 
@@ -24,7 +24,27 @@ class Profile extends Component {
                         marginTop: Platform.OS === 'ios' ? 0 : - 25
                     }}
                 />
-                <Text>Ini Page Profile</Text>
+                <ListItem
+                    leftAvatar={{
+                        source: { uri: this.props.user.photoURL },
+                        size: 'large'
+                    }}
+                    title={this.props.user.displayName}
+                    subtitle={'Instagrin User'}
+                />
+                <Button 
+                    title="Edit Profile"
+                    containerStyle={{ 
+                        marginVertical: 15, 
+                        marginHorizontal: 15, 
+                        borderWidth: 0.5,
+                        borderColor: 'gray'
+                    }}
+                    buttonStyle={{ borderColor: 'gray' }}
+                    titleStyle={{ color: 'black' }}
+                    type='outline'
+                    onPress={() => this.props.navigation.navigate('EditProfile')}
+                />
             </View>
         )
     }
@@ -32,7 +52,7 @@ class Profile extends Component {
 
 const mapStateToProps = ({ auth }) => {
     return {
-        user: auth.user
+        user: auth.user ? auth.user : { displayName: '', photoURL: '' }
     }
 }
 

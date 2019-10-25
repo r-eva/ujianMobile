@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import TabMainMenu from './TabMainMenu';
+import DrawerMain from './DrawerMain';
 
 const MainStack = createAppContainer(createStackNavigator(
     {
@@ -13,8 +13,8 @@ const MainStack = createAppContainer(createStackNavigator(
         Register: {
             screen: RegisterForm
         },
-        MainMenu: {
-            screen: ({ navigation }) => <TabMainMenu screenProps={{ rootStackNavigator: navigation }}/>
+        DrawerMain: {
+            screen: ({ navigation }) => <DrawerMain screenProps={{ rootStackNavigator: navigation }}/>
         }
     },
     {

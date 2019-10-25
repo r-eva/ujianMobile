@@ -7,7 +7,8 @@ import {
     START_REGISTER,
     REGISTER_FAILED,
     START_LOGIN,
-    LOGIN_FAILED
+    LOGIN_FAILED,
+    USER_LOGOUT
 } from './types';
 
 export const onUserRegister = ({email,username,password,conPassword}) => {
@@ -103,5 +104,14 @@ export const onUserLogin = ({ email, password }) => {
                 payload: 'Please Fill Email and Password'
             })
         }
+    }
+}
+
+export const onUserLogout = () => {
+    return (dispatch) => {
+        firebase.auth().signOut()
+            .then(() => {
+                dispatch({ type: USER_LOGOUT })
+            })
     }
 }

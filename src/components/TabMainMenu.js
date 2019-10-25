@@ -3,12 +3,12 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Icon } from 'react-native-elements';
 import Home from './Home';
-import ProfileDrawer from './ProfileDrawer';
+import StackProfile from './StackProfile';
 
 export default createAppContainer(createBottomTabNavigator(
   {
     Home: Home,
-    Profile: ({ screenProps }) => <ProfileDrawer screenProps={{ rootStackNavigator: screenProps.rootStackNavigator }} />
+    Profile: StackProfile
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
