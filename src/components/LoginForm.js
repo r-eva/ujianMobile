@@ -2,12 +2,39 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import * as Animatable from 'react-native-animatable';
+import { connect } from 'react-redux';
+import { StackActions, NavigationActions } from 'react-navigation';
+import { onUserLogin } from '../actions';
 
 class LoginForm extends Component {
     state = { 
         passHidden: true,
         email: '',
         password: ''
+    }
+
+    onBtnLoginPress = () => {
+        if(!this.props.loading) {
+            this.props.onUserLogin({ 
+                email: this.state.email,
+                password: this.state.password
+            })
+        }
+    }
+
+    componentDidUpdate() {
+        if(this.props.user
+            && this.state.email !== ''
+            && this.state.password !== ''
+        ) {
+            // this.props.navigation.navigate('MainMenu')
+            this.setState({ email: '', password: ''})
+            const resetAction = StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName: 'MainMenu' })],
+            });
+            this.props.navigation.dispatch(resetAction);
+        }
     }
 
     render() {
@@ -51,10 +78,13 @@ class LoginForm extends Component {
                         onChangeText={(text) => this.setState({ password: text })}
                     />
                 </View>
+                <Text style={{ color: 'red' }}>{this.props.error}</Text>
                 <Button
                     title="Login"
                     containerStyle={{ width: '95%', marginBottom: 10 }}
                     buttonStyle={{ backgroundColor: 'black' }}
+                    loading={this.props.loading}
+                    onPress={this.onBtnLoginPress}
                 />
                 <Button
                     title="Register"
@@ -84,4 +114,12 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginForm;
+const mapStateToProps = ({ auth }) => {
+    return {
+        user: auth.user,
+        loading: auth.loadingLogin,
+        error: auth.errorLogin
+    }
+}
+
+export default connect(mapStateToProps, { onUserLogin })(LoginForm);

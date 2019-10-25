@@ -84,6 +84,24 @@ export const onUserRegister = ({email,username,password,conPassword}) => {
 export const onUserLogin = ({ email, password }) => {
     return (dispatch) => {
         dispatch({ type: START_LOGIN })
-        
+        if(email !== '' && password !== '') {
+            firebase.auth().signInWithEmailAndPassword(email,password)
+                .then(res => {
+                    dispatch({
+                        type: LOGIN_USER_SUCCESS,
+                        payload: res.user
+                    })
+                }).catch(err => {
+                    dispatch({
+                        type: LOGIN_FAILED,
+                        payload: err.message
+                    })
+                })
+        } else {
+            dispatch({ 
+                type: LOGIN_FAILED, 
+                payload: 'Please Fill Email and Password'
+            })
+        }
     }
 }

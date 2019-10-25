@@ -3,10 +3,12 @@ import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Icon } from 'react-native-elements';
 import Home from './Home';
+import ProfileDrawer from './ProfileDrawer';
 
 export default createAppContainer(createBottomTabNavigator(
   {
     Home: Home,
+    Profile: ({ screenProps }) => <ProfileDrawer screenProps={{ rootStackNavigator: screenProps.rootStackNavigator }} />
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -17,8 +19,15 @@ export default createAppContainer(createBottomTabNavigator(
         if (routeName === 'Home') {
           iconName = `home`;
         }
+        else if(routeName === 'Profile') {
+          iconName = `account-box`;
+        }
         // You can return any component that you like here!
-        return <Icon name={iconName} size={35} color={tintColor} />;
+        return <Icon 
+                  name={iconName} 
+                  size={35} 
+                  color={tintColor}
+                />;
       },
     }),
     tabBarOptions: {
