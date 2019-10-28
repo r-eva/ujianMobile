@@ -2,8 +2,17 @@ import React, { Component } from 'react';
 import { View, Text, Platform } from 'react-native';
 import { Header, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { initEditProfile } from '../actions';
 
 class Profile extends Component {
+    onBtnEditProfilePress = () => {
+        this.props.initEditProfile({
+            username: this.props.user.displayName,
+            profileImage: this.props.user.photoURL
+        })
+        this.props.navigation.navigate('EditProfile')
+    }
+
     render() {
         return (
             <View>
@@ -43,7 +52,7 @@ class Profile extends Component {
                     buttonStyle={{ borderColor: 'gray' }}
                     titleStyle={{ color: 'black' }}
                     type='outline'
-                    onPress={() => this.props.navigation.navigate('EditProfile')}
+                    onPress={this.onBtnEditProfilePress}
                 />
             </View>
         )
@@ -56,4 +65,4 @@ const mapStateToProps = ({ auth }) => {
     }
 }
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { initEditProfile })(Profile);
