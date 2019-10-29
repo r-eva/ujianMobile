@@ -12,6 +12,14 @@ import {
 class EditProfile extends Component {
     state = { isVisible: false }
 
+    componentDidUpdate() {
+        if(this.props.profileImage === '') {
+            this.props.navigation.navigate('Profile', {
+                onGoBack: () => this.refresh(),
+              });
+        }
+    }
+
     onSelectFromGalleryPress = () => {
         ImagePicker.openPicker({
             width: 700,
@@ -36,10 +44,17 @@ class EditProfile extends Component {
     }
 
     saveProfile = () => {
-        this.props.saveProfile({
-            username: this.props.username,
-            profileImage: this.props.profileImage
-        })
+        if(this.props.user.photoURL !== this.props.profileImage) {
+            this.props.saveProfile({
+                username: this.props.username,
+                profileImage: this.props.profileImage
+            })
+        } else {
+            this.props.saveProfile({
+                username: this.props.username,
+                profileImage: null
+            })
+        }
     }
 
     render() {
@@ -68,6 +83,9 @@ class EditProfile extends Component {
                         marginTop: Platform.OS === 'ios' ? 0 : - 25
                     }}
                 />
+                <View style={{ alignItems: 'center' }}>
+                    <Text style={{ color: 'red' }}>{this.props.error}</Text>
+                </View>
                 <View style={{ alignItems: 'center', marginTop: 10 }}>
                     <Image 
                         source={{ uri: this.props.profileImage }} 
