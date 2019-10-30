@@ -34,6 +34,7 @@ class Settings extends Component {
                     containerStyle={{
                         backgroundColor: '#fff',
                         justifyContent: 'space-around',
+                        elevation: 2,
                         marginTop: Platform.OS === 'ios' ? 0 : - 25
                     }}
                 />

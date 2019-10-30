@@ -30,7 +30,8 @@ class Profile extends Component {
                     containerStyle={{
                         backgroundColor: '#fff',
                         justifyContent: 'space-around',
-                        marginTop: Platform.OS === 'ios' ? 0 : - 25
+                        marginTop: Platform.OS === 'ios' ? 0 : - 25,
+                        borderBottomWidth: 0.5
                     }}
                 />
                 <ListItem

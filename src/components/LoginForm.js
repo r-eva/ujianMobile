@@ -23,79 +23,89 @@ class LoginForm extends Component {
     }
 
     componentDidUpdate() {
-        if(this.props.user
-            && this.state.email !== ''
-            && this.state.password !== ''
-        ) {
-            // this.props.navigation.navigate('DrawerMain')
-            this.setState({ email: '', password: ''})
+        if(this.props.user) {
             const resetAction = StackActions.reset({
                 index: 0,
                 actions: [NavigationActions.navigate({ routeName: 'DrawerMain' })],
             });
             this.props.navigation.dispatch(resetAction);
+            if(this.state.email !== ''
+                && this.state.password !== ''
+            ) {
+                this.setState({ email: '', password: ''})
+            }
         }
     }
 
     render() {
-        return (
-            <View style={styles.containerStyle}>
-                <Animatable.Text animation={'fadeInDown'} duration={2000}>
-                    <Text h3>Instagrin</Text>
-                </Animatable.Text>
-                <View style={styles.inputStyle}>
-                    <Input
-                        placeholder='Email'
-                        leftIcon={
-                            <Icon
-                                name='email'
-                                size={24}
-                                color='black'
-                            />
-                        }
-                        value={this.state.email}
-                        onChangeText={(text) => this.setState({ email: text })}
+        if(this.props.authChecked && !this.props.user) {
+            return (
+                <View style={styles.containerStyle}>
+                    <Animatable.Text animation={'fadeInDown'} duration={2000}>
+                        <Text h3>Instagrin</Text>
+                    </Animatable.Text>
+                    <View style={styles.inputStyle}>
+                        <Input
+                            placeholder='Email'
+                            leftIcon={
+                                <Icon
+                                    name='email'
+                                    size={24}
+                                    color='black'
+                                />
+                            }
+                            value={this.state.email}
+                            onChangeText={(text) => this.setState({ email: text })}
+                        />
+                        <Input
+                            placeholder='Password'
+                            leftIcon={
+                                <Icon
+                                    name='lock'
+                                    size={24}
+                                    color='black'
+                                />
+                            }
+                            rightIcon= {
+                                <Icon
+                                    name={this.state.passHidden ? 'visibility-off' : 'visibility' }
+                                    size={24}
+                                    color={this.state.passHidden ? '#bfc3c9' : 'black' }
+                                    onPress={() => this.setState({ passHidden: !this.state.passHidden })}
+                                />
+                            }
+                            secureTextEntry={this.state.passHidden}
+                            value={this.state.password}
+                            onChangeText={(text) => this.setState({ password: text })}
+                        />
+                    </View>
+                    <Text style={{ color: 'red' }}>{this.props.error}</Text>
+                    <Button
+                        title="Login"
+                        containerStyle={{ width: '95%', marginBottom: 10 }}
+                        buttonStyle={{ backgroundColor: 'black' }}
+                        loading={this.props.loading}
+                        onPress={this.onBtnLoginPress}
                     />
-                    <Input
-                        placeholder='Password'
-                        leftIcon={
-                            <Icon
-                                name='lock'
-                                size={24}
-                                color='black'
-                            />
-                        }
-                        rightIcon= {
-                            <Icon
-                                name={this.state.passHidden ? 'visibility-off' : 'visibility' }
-                                size={24}
-                                color={this.state.passHidden ? '#bfc3c9' : 'black' }
-                                onPress={() => this.setState({ passHidden: !this.state.passHidden })}
-                            />
-                        }
-                        secureTextEntry={this.state.passHidden}
-                        value={this.state.password}
-                        onChangeText={(text) => this.setState({ password: text })}
+                    <Button
+                        title="Register"
+                        containerStyle={{ width: '95%' }}
+                        buttonStyle={{ borderColor: 'black', borderWidth: 1 }}
+                        titleStyle={{ color: 'black' }}
+                        type="outline"
+                        onPress={() => this.props.navigation.navigate('Register')}
                     />
                 </View>
-                <Text style={{ color: 'red' }}>{this.props.error}</Text>
-                <Button
-                    title="Login"
-                    containerStyle={{ width: '95%', marginBottom: 10 }}
-                    buttonStyle={{ backgroundColor: 'black' }}
-                    loading={this.props.loading}
-                    onPress={this.onBtnLoginPress}
-                />
-                <Button
-                    title="Register"
-                    containerStyle={{ width: '95%' }}
-                    buttonStyle={{ borderColor: 'black', borderWidth: 1 }}
-                    titleStyle={{ color: 'black' }}
-                    type="outline"
-                    onPress={() => this.props.navigation.navigate('Register')}
-                />
+            )
+        }
+        
+        return (
+            <View style={styles.containerStyle}>
+                <Animatable.Text animation={'bounce'} iterationCount="infinite">
+                    <Text h3>Authenticating...</Text>
+                </Animatable.Text>
             </View>
-        )
+        );
     }
 }
 
@@ -118,7 +128,8 @@ const mapStateToProps = ({ auth }) => {
     return {
         user: auth.user,
         loading: auth.loadingLogin,
-        error: auth.errorLogin
+        error: auth.errorLogin,
+        authChecked: auth.authChecked
     }
 }
 

@@ -11,6 +11,19 @@ import {
     USER_LOGOUT
 } from './types';
 
+export const notLoginYet = () => {
+    return {
+        type: USER_LOGOUT
+    }
+}
+
+export const alreadyLogin = (user) => {
+    return {
+        type: LOGIN_USER_SUCCESS,
+        payload: user
+    }
+}
+
 export const onUserRegister = ({email,username,password,conPassword}) => {
     return (dispatch) => {
         dispatch({ type: START_REGISTER })

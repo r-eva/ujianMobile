@@ -52,9 +52,6 @@ export const saveProfile = ({ username, profileImage }) => {
                 const fs = RNFetchBlob.fs
                 window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest
                 window.Blob = Blob
-            
-            
-                let uploadBlob = null
 
                 // var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
                 var nama = currentUser.displayName.toLowerCase().replace(/\s/g, '')

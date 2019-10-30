@@ -12,7 +12,8 @@ const INITIAL_STATE = {
     loadingRegister: false,
     errorRegister: '',
     errorLogin: '',
-    loadingLogin: false
+    loadingLogin: false,
+    authChecked: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -28,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER_SUCCESS :
             return { ...INITIAL_STATE, user: action.payload };
         case USER_LOGOUT :
-            return INITIAL_STATE;
+            return { ...INITIAL_STATE, authChecked: true };
         default :
             return state;
     }

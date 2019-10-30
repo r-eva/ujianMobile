@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import firebase from '@firebase/app';
+import '@firebase/auth';
 import MainStack from './src/components/MainStack';
+import { connect } from 'react-redux';
+import { alreadyLogin, notLoginYet } from './src/actions';
 
 class AppInit extends Component {
   componentDidMount() {
@@ -19,6 +22,14 @@ class AppInit extends Component {
     if(!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     }
+
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            this.props.alreadyLogin(user);
+        } else {
+            this.props.notLoginYet();
+        }
+    });
   }
 
   render() {
@@ -28,4 +39,4 @@ class AppInit extends Component {
   }
 }
 
-export default AppInit;
+export default connect(null, { notLoginYet, alreadyLogin })(AppInit);
