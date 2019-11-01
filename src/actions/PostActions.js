@@ -9,14 +9,15 @@ import {
 export const getListPost = () => {
     return (dispatch) => {
         console.log('Masuk')
-       firebase.database().ref(`/posts`)
+        var firebaseDatabase = firebase.database()
+       firebaseDatabase.ref(`/posts`)
         .on('value', (snapshot) => {
             console.log(snapshot.val())
             dispatch({
                 type: EMPTY_POST_LIST
             })
             _.map(snapshot.val(), async (val, id) => {
-                var snapshot = await firebase.database().ref(`/users/${val.userId}`).once('child_added')
+                var snapshot = await firebaseDatabase.ref(`/users/${val.userId}`).once('child_added')
                 var value = snapshot.val()
                 console.log(value)
                 dispatch({
