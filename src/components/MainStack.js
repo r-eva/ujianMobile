@@ -7,15 +7,9 @@ import DrawerMain from './DrawerMain';
 
 const MainStack = createAppContainer(createStackNavigator(
     {
-        Login: {
-            screen: LoginForm
-        },
-        Register: {
-            screen: RegisterForm
-        },
-        DrawerMain: {
-            screen: ({ navigation }) => <DrawerMain screenProps={{ rootStackNavigator: navigation }}/>
-        }
+        Login: LoginForm,
+        Register: RegisterForm,
+        DrawerMain: ({ navigation }) => <DrawerMain screenProps={{ rootStackNavigator: navigation }}/>
     },
     {
         initialRouteName: 'Login',
