@@ -16,3 +16,4 @@ export const EDIT_PROFILE_FAIL = 'EDIT_PROFILE_FAIL';
 // Manage Posts
 export const EMPTY_POST_LIST = 'EMPTY_POST_LIST';
 export const FILL_POST_LIST = 'FILL_POST_LIST';
+export const SELECT_POST_PROFILE = 'SELECT_POST_PROFILE';

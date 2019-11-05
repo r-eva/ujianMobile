@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, Platform, Image, ScrollView } from 'react-native';
+import { View, Text, Platform, Image, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { Header, ListItem, Button } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { initEditProfile } from '../actions';
+import { initEditProfile, selectProfilePost } from '../actions';
 
 class Profile extends Component {
+
+    componentDidUpdate() {
+        if(this.props.postDetail) {
+            this.props.navigation.navigate('PostDetail')
+        }
+    }
+
     onBtnEditProfilePress = () => {
         this.props.initEditProfile({
             username: this.props.user.displayName,
@@ -16,21 +23,18 @@ class Profile extends Component {
     renderListPost = () => {
         var i = 2;
         return this.props.listPost.map((item, index) => {
-            if((index + 1) !== i ) {
-                return (
-                    <View 
-                        style={{ width: '33%', marginVertical: 1 }}
-                    >
-                        <Image source={{uri: item.imageURL }} style={{height: 125, width: '100%' }}/>
-                    </View>
-                )
+            var styleObj = { width: '33%', marginVertical: 1 }
+            if((index + 1) === i ) {
+                i += 3;
+                styleObj.marginHorizontal = '0.5%'
             }
-            i += 3;
             return (
                 <View 
-                    style={{ width: '33%', marginVertical: 1, marginHorizontal: '0.5%' }}
+                    style={styleObj}
                 >
-                    <Image source={{uri: item.imageURL }} style={{height: 125, width: '100%' }}/>
+                    <TouchableWithoutFeedback onPress={() => this.props.selectProfilePost(item)}>
+                        <Image source={{uri: item.imageURL }} style={{height: 125, width: '100%' }}/>
+                    </TouchableWithoutFeedback>
                 </View>
             )
         })
@@ -100,8 +104,9 @@ const mapStateToProps = ({ auth, post }) => {
     })
     return {
         user,
-        listPost
+        listPost,
+        postDetail: post.selectedPostDetailProfile
     }
 }
 
-export default connect(mapStateToProps, { initEditProfile })(Profile);
+export default connect(mapStateToProps, { initEditProfile, selectProfilePost })(Profile);

@@ -3,7 +3,8 @@ import '@firebase/database';
 import _ from 'lodash';
 import { 
     EMPTY_POST_LIST,
-    FILL_POST_LIST
+    FILL_POST_LIST,
+    SELECT_POST_PROFILE
 } from './types';
 
 export const getListPost = () => {
@@ -32,6 +33,13 @@ export const getListPost = () => {
             });
         })   
 
+    }
+}
+
+export const selectProfilePost = (post) => {
+    return {
+        type: SELECT_POST_PROFILE,
+        payload: post
     }
 }
 
