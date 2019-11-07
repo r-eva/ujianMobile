@@ -3,7 +3,7 @@ import { View, Image, TouchableWithoutFeedback } from 'react-native';
 import { Header, Icon, Overlay } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Card, CardItem, Thumbnail, Text, Button, Left, Body, Right } from 'native-base';
-import { selectProfilePost } from '../actions';
+import { selectProfilePost, deletePost } from '../actions';
 
 class PostDetailProfile extends Component {
     state = { isVisible: false, deleteVisible: false }
@@ -12,6 +12,11 @@ class PostDetailProfile extends Component {
         if(!this.props.username) {
             this.props.navigation.goBack()
         }
+    }
+
+    onDeletePress = () => {
+        this.setState({ deleteVisible: false })
+        this.props.deletePost(this.props.id)
     }
 
     render() {
@@ -110,7 +115,7 @@ class PostDetailProfile extends Component {
                                 Delete this post?
                             </Text>
                         </View>
-                        <TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={this.onDeletePress}>
                             <View style={{
                                 paddingVertical: 12,
                                 borderTopWidth: 0.3,
@@ -148,6 +153,17 @@ class PostDetailProfile extends Component {
                         </TouchableWithoutFeedback>
                     </View>
                 </Overlay>
+                <Overlay 
+                    isVisible={this.props.deleteLoading}
+                    height={'auto'}
+                    width={'auto'}
+                >
+                    <View style={{ padding: 15 }}>
+                        <Text style={{ fontSize: 16 }}>
+                            Deleting ...
+                        </Text>
+                    </View>
+                </Overlay>
             </View>
         )
     }
@@ -155,7 +171,10 @@ class PostDetailProfile extends Component {
 
 const mapStateToProps = ({ post }) => {
     // console.log('Post Detail : ', post.selectedPostDetailProfile)
-    return post.selectedPostDetailProfile
+    return {
+        ...post.selectedPostDetailProfile,
+        deleteLoading: post.deleteLoading
+    }
 }
 
-export default connect(mapStateToProps, { selectProfilePost })(PostDetailProfile);
+export default connect(mapStateToProps, { selectProfilePost, deletePost })(PostDetailProfile);
