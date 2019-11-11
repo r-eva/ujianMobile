@@ -7,12 +7,17 @@ import { initEditProfile, selectProfilePost } from '../actions';
 class Profile extends Component {
 
     componentDidUpdate() {
-        if(this.props.postDetail) {
+        if (this.props.postDetail) {
             this.props.navigation.navigate('PostDetail')
         }
     }
 
+    componentWillUnmount() {
+        this.props.selectProfilePost(null)
+    }
+
     onBtnEditProfilePress = () => {
+        this.props.selectProfilePost(null)
         this.props.initEditProfile({
             username: this.props.user.displayName,
             profileImage: this.props.user.photoURL

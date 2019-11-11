@@ -9,13 +9,13 @@ class AppInit extends Component {
   componentDidMount() {
     // Your web app's Firebase configuration
     var firebaseConfig = {
-      apiKey: "AIzaSyBoY9TDk4acZ222kvOPunwz_jdeSJrP9-E",
-      authDomain: "instagrin-jc-10-26475.firebaseapp.com",
-      databaseURL: "https://instagrin-jc-10-26475.firebaseio.com",
-      projectId: "instagrin-jc-10-26475",
-      storageBucket: "instagrin-jc-10-26475.appspot.com",
-      messagingSenderId: "474268220244",
-      appId: "1:474268220244:web:9a568790eec751ae6ce6c1"
+      apiKey: "AIzaSyAYLBodjY7WoOUF-EoUcOc-34v76HlXvfo",
+      authDomain: "instagrin-eva.firebaseapp.com",
+      databaseURL: "https://instagrin-eva.firebaseio.com",
+      projectId: "instagrin-eva",
+      storageBucket: "instagrin-eva.appspot.com",
+      messagingSenderId: "825489741553",
+      appId: "1:825489741553:web:4135d228f5cd7e80143b50"
     };
     // Initialize Firebase
     //console.log('Isi Firebase Apps', firebase.apps)

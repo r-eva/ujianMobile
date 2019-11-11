@@ -6,6 +6,7 @@ import { Card, CardItem, Thumbnail, Text, Button, Left, Body, Right } from 'nati
 import { getListPost } from '../actions';
 
 class Home extends Component {
+
     componentDidMount() {
         this.props.getListPost();
     }

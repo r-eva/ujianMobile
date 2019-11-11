@@ -6,7 +6,8 @@ import {
     FILL_POST_LIST,
     SELECT_POST_PROFILE,
     DELETE_POST,
-    DELETE_POST_SUCCESS
+    DELETE_POST_SUCCESS,
+    SELECT_EXPLORE_POST,
 } from './types';
 
 export const getListPost = () => {
@@ -39,9 +40,18 @@ export const getListPost = () => {
 }
 
 export const selectProfilePost = (post) => {
+    console.log('masuk selectProfle post')
+    console.log(post)
     return {
         type: SELECT_POST_PROFILE,
         payload: post
+    }
+}
+
+export const selectExpPost = (selectedPost) => {
+    return {
+        type: SELECT_EXPLORE_POST,
+        payload: selectedPost
     }
 }
 

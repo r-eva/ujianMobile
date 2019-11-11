@@ -5,10 +5,12 @@ import { Icon } from 'react-native-elements';
 import Home from './Home';
 import StackProfile from './StackProfile';
 import PostPhoto from './PostPhoto';
+import ExploreStack from './ExploreStack'
 
 export default createAppContainer(createBottomTabNavigator(
   {
     Home: Home,
+    Explore: ExploreStack,
     PostPhoto: PostPhoto,
     Profile: StackProfile  
   },
@@ -20,10 +22,14 @@ export default createAppContainer(createBottomTabNavigator(
         let iconName;
         if (routeName === 'Home') {
           iconName = `home`;
+        } else if (routeName === 'Explore') {
+          iconName = 'search'
         } else if(routeName === 'Profile') {
           iconName = `account-box`;
         } else if(routeName === 'PostPhoto') {
           iconName = `add-box`;
+        } else if (routeName === 'Explore') {
+          iconName = 'search'
         }
         // You can return any component that you like here!
         return <Icon 
